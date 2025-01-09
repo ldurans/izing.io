@@ -16,7 +16,6 @@ jobs:
   deploy_back:
     if: github.repository == 'ldurans/izing.open.io'
     runs-on: ubuntu-22.04
-    environment: production
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -42,11 +41,10 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: izingopenio
+          username: jojovvz
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and push Docker image
         run: |
           docker buildx create --use
           docker buildx build --platform linux/amd64,linux/arm64 -t izingopenio/izingopenio-backend:latest --push ./backend
-
